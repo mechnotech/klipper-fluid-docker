@@ -48,5 +48,6 @@ RUN ${KLIPPER_VENV_DIR}/bin/python klippy/chelper/__init__.py
 RUN ${KLIPPER_VENV_DIR}/bin/python -m compileall klippy
 
 WORKDIR ${HOME}/klipper
-
+#RUN ln ${HOME}/.config/printer.cfg ${HOME}/printer_data/config/printer.cfg
+#RUN ln ${HOME}/.config/moonraker.conf ${HOME}/printer_data/config/moonraker.conf
 CMD ["bash"]

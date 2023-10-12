@@ -1,4 +1,5 @@
 #!/bin/bash
+ln home/klippy/.config/printer.cfg home/klippy/printer_data/config/printer.cfg
 VENV=$1
 if [ -z $VENV ]; then
     echo "usage: run_in_venv [virtualenv_path] CMDS"

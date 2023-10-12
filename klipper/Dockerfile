@@ -102,7 +102,7 @@ ENV LANGUAGE en_GB:en
 
 ARG USER=klippy
 ARG HOME=/home/${USER}
-ENV CONFIG_DIR=${HOME}/.config
+ENV CONFIG_DIR=${HOME}/printer_data/config
 ENV KLIPPER_VENV_DIR=${HOME}/klippy-env
 ENV MOONRAKER_VENV_DIR=${HOME}/moonraker-env
 
@@ -132,6 +132,8 @@ USER ${USER}
 WORKDIR ${HOME}
 
 RUN mkdir -p ${HOME}/gcode_files ${CONFIG_DIR} ${HOME}/.moonraker ${HOME}/.moonraker_database ${HOME}/.klipper_repo_backup ${HOME}/.moonraker_repo_backup
+#RUN ls -a ${HOME}/.config
+#RUN ln ${HOME}/.config/printer.cfg ${HOME}/printer_data/config/printer.cfg
 
 VOLUME ${HOME}/gcode_files
 VOLUME ${CONFIG_DIR}
@@ -151,4 +153,5 @@ COPY --chown=${USER}:${USER} klipper/run_in_venv /usr/local/bin/run_in_venv
 
 COPY klipper/supervisord.conf /etc/supervisord/conf.d/supervisord.conf
 COPY klipper/*.ini /etc/supervisord/
+#COPY config ${HOME}/printer_data/config
 CMD ["supervisord", "-c", "/etc/supervisord/conf.d/supervisord.conf"]
