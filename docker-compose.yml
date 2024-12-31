@@ -15,7 +15,7 @@ services:
     container_name: klipper
     ports:
       - 7125:7125
-    restart: unless-stopped
+    restart: on-failure
     volumes:
       # - gcode_files:/home/klippy/gcode_files
       # be aware to create your own branch if you mount the config folder as it will be updated on the main branch
@@ -27,8 +27,9 @@ services:
     # mount serial device - take care to grant sufficient permissions to the device: <host_dev>:<container_dev>
     # put <container_dev> into your printer.cfg
     privileged: true
-    devices:
-      - /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:/dev/ttyUSB0
+##   Раскомментировать, если нужно пробросить USB устройство принтера
+#    devices:
+#      - /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:/dev/ttyUSB0
 
   ##################################################################
   # Example config for a second printer on a different serial port
@@ -70,7 +71,7 @@ services:
     container_name: fluidd
     ports:
       - 8010:80
-    depends_on: 
+    depends_on:
       - klipper
       # - klipper_another_printer
     links:
